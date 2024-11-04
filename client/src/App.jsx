@@ -4,7 +4,7 @@ import {
   PieChart, Pie, Cell, LineChart, Line, ScatterChart, Scatter, ZAxis,
   ComposedChart, Area
 } from 'recharts';
-
+const apiUrl = import.meta.env.VITE_API_URL;
 const COLORS = ['#2563eb', '#16a34a', '#ea580c', '#7c3aed', '#be123c', '#0891b2', '#0f766e', '#b45309', '#4f46e5', '#be185d'];
 const CHART_HEIGHT = 300;
 
@@ -82,7 +82,7 @@ const Dashboard = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await fetch('http://localhost:5000/api/data');
+        const response = await fetch(`${apiUrl}/api/data`);
         const jsonData = await response.json();
         setData(jsonData);
         setError(null);
