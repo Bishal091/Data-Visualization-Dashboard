@@ -1,0 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+*{
+  margin: 0;
+  padding: 0;
+  color-scheme: light dark;
+  font-family: "Rubik", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: weight;
+  font-style: normal;
+ 
+ 
+}
+button{
+  background-color: rgb(0, 167, 179);
+  color: white;
+  padding: .3rem;
+}
+html{
+  font-size: 0.7vw;
+  scroll-behavior: smooth;
+  /* padding: 1rem 1rem ; */
+}
+/* .toastBody{
+  font-size: 1.2rem;
+  font-weight: 600;
+} */
+
+body {
+  overflow: auto;
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+
+body::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
+/* PREDEFINED */
+h1{
+  font-size: 3rem;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+
+/* Custom styles for Toastify */
+.toastBody {
+  font-size: 4rem;
+  font-weight: 600;
+}
+
+/* Large screens (desktops, 1024px and up) */
+@media (min-width: 1024px) {
+  .toastBody {
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+}
+
+/* Extra large screens (large desktops, 1280px and up) */
+@media (min-width: 1280px) {
+  .toastBody {
+    font-size: 1.2rem;
+  font-weight: 600;
+  }
+}
