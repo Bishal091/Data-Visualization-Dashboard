@@ -1,39 +1,45 @@
+require('dotenv').config();
+
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-require('dotenv').config();
 const dataRouter = require('./routes/data');
 
 const app = express();
-const PORT = process.env.PORT || 5000;
 
-const reactAppApiUrl = process.env.REACT_APP_API_URL;
+// Environment variables
+const PORT = process.env.PORT;
+const MONGO_URI = process.env.MONGO_URI;
+const REACT_APP_API_URL = process.env.REACT_APP_API_URL;
 
-// CORS
+// CORS configuration
 const corsOptions = {
-  // origin: 'https://graytm-wallet.netlify.app',
-  origin: `${reactAppApiUrl}`,
-    methods: "GET, POST, PUT, DELETE, PATCH, HEAD",
-    credentials: true,
-  };
-  
-  app.use(cors(corsOptions));
+  origin: REACT_APP_API_URL,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD'],
+  credentials: true
+};
 
+// Middleware
+app.use(cors(corsOptions));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-mongoose.connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+// MongoDB connection
+mongoose.connect(MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
 });
 
 const connection = mongoose.connection;
+
 connection.once('open', () => {
-    console.log('MongoDB database connection established successfully');
+  console.log('MongoDB database connection established successfully');
 });
 
-// const dataRouter = require('./routes/data');
+// Routes
 app.use('/api/data', dataRouter);
 
+// Start server
 app.listen(PORT, () => {
-    console.log(`Server is running on port: ${PORT}`);
+  console.log(`Server is running on port: ${PORT}`);
 });
