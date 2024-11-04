@@ -7,12 +7,12 @@ const dataRouter = require('./routes/data');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// const reactAppApiUrl = process.env.REACT_APP_API_URL || 'https://dataviztop.netlify.app';
+const reactAppApiUrl = process.env.REACT_APP_API_URL;
 
 // CORS
 const corsOptions = {
   // origin: 'https://graytm-wallet.netlify.app',
-  origin: "https://dataviztop.netlify.app",
+  origin: reactAppApiUrl,
     methods: "GET, POST, PUT, DELETE, PATCH, HEAD",
     credentials: true,
   };
