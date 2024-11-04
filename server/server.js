@@ -1,45 +1,49 @@
-require('dotenv').config();
-
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+require('dotenv').config();
 const dataRouter = require('./routes/data');
 
 const app = express();
+const PORT = process.env.PORT || 5000;
 
-// Environment variables
-const PORT = process.env.PORT;
-const MONGO_URI = process.env.MONGO_URI;
-const REACT_APP_API_URL = process.env.REACT_APP_API_URL;
+const reactAppApiUrl = process.env.REACT_APP_API_URL || 'https://dataviztop.netlify.app';
 
-// CORS configuration
+// Set allowed origins dynamically
+const allowedOrigins = [
+  reactAppApiUrl,
+  'http://localhost:5174' // Example for local development
+];
+
 const corsOptions = {
-  origin: REACT_APP_API_URL,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD'],
-  credentials: true
+  origin: function (origin, callback) {
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  methods: "GET, POST, PUT, DELETE, PATCH, HEAD",
+  credentials: true,
 };
 
-// Middleware
 app.use(cors(corsOptions));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
-// MongoDB connection
-mongoose.connect(MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+app.use(express.json());
+
+mongoose.connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
 });
 
 const connection = mongoose.connection;
-
 connection.once('open', () => {
-  console.log('MongoDB database connection established successfully');
+    console.log('MongoDB database connection established successfully');
 });
 
-// Routes
+// const dataRouter = require('./routes/data');
 app.use('/api/data', dataRouter);
 
-// Start server
 app.listen(PORT, () => {
-  console.log(`Server is running on port: ${PORT}`);
+    console.log(`Server is running on port: ${PORT}`);
 });
