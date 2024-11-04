@@ -12,7 +12,7 @@ const reactAppApiUrl = process.env.REACT_APP_API_URL;
 // CORS
 const corsOptions = {
   // origin: 'https://graytm-wallet.netlify.app',
-  origin: reactAppApiUrl,
+  origin: `${reactAppApiUrl}`,
     methods: "GET, POST, PUT, DELETE, PATCH, HEAD",
     credentials: true,
   };
