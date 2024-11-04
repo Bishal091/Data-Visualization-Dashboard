@@ -7,7 +7,7 @@ const dataRouter = require('./routes/data');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-const reactAppApiUrl = process.env.REACT_APP_API_URL;
+const reactAppApiUrl = process.env.REACT_APP_API_URL || 'https://dataviztop.netlify.app';
 
 // Set allowed origins dynamically
 const allowedOrigins = [
